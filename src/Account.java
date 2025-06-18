@@ -1,3 +1,8 @@
+/**
+ * An {@link #Account} represents a client of the Bank. It has {@link #accountName}
+ * and {@link #balance} fields. The class handles the logic for withdrawing and depositing
+ * money from the client's balance.
+ */
 public class Account {
     private final String accountName;
     private double balance;
