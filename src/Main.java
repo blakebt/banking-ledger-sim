@@ -1,47 +1,22 @@
+import enums.BankOperation;
+import model.Account;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
-        Bank bank = new Bank();
+        Bank bank;
         Account account = new Account("Bob", 1000.0);
+        Account destinationAccount = new Account("Alice", 1500.0);
 
         try(ExecutorService exec = Executors.newFixedThreadPool(3)) {
-            exec.execute(new HolderTask(account, 100, Task.DEPOSIT));
-            bank.getTransactionLog().add(new Transaction(
-                    bank.getTransactionLog().size() + 1,
-                    account.getAccountName(),
-                    Task.DEPOSIT,
-                    100)
-            );
-            exec.execute(new HolderTask(account, 200, Task.WITHDRAW));
-            bank.getTransactionLog().add(new Transaction(
-                    bank.getTransactionLog().size() + 1,
-                    account.getAccountName(),
-                    Task.WITHDRAW,
-                    200)
-            );
-            exec.execute(new HolderTask(account, 100, Task.DEPOSIT));
-            bank.getTransactionLog().add(new Transaction(
-                    bank.getTransactionLog().size() + 1,
-                    account.getAccountName(),
-                    Task.DEPOSIT,
-                    100)
-            );
-            exec.execute(new HolderTask(account, 100, Task.DEPOSIT));
-            bank.getTransactionLog().add(new Transaction(
-                    bank.getTransactionLog().size() + 1,
-                    account.getAccountName(),
-                    Task.DEPOSIT,
-                    100)
-            );
-            exec.execute(new HolderTask(account, 300, Task.WITHDRAW));
-            bank.getTransactionLog().add(new Transaction(
-                    bank.getTransactionLog().size() + 1,
-                    account.getAccountName(),
-                    Task.WITHDRAW,
-                    300)
-            );
+            bank = new Bank(exec);
+            bank.completeTransaction(account, BankOperation.DEPOSIT, 100);
+            bank.completeTransaction(account, BankOperation.DEPOSIT, 200);
+            bank.completeTransaction(account, BankOperation.WITHDRAW, 100);
+            bank.completeTransaction(account, BankOperation.DEPOSIT, 300);
+            bank.completeTransaction(account, BankOperation.WITHDRAW, 500);
 
             exec.shutdown();
         }
