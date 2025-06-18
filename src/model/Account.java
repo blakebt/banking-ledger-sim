@@ -1,3 +1,5 @@
+package model;
+
 /**
  * An {@link #Account} represents a client of the Bank. It has {@link #accountName}
  * and {@link #balance} fields. The class handles the logic for withdrawing and depositing
