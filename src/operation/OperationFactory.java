@@ -5,7 +5,7 @@ import model.Account;
 
 public class OperationFactory {
 
-    public static Operation createBasicOperation(BankOperation type, Account account, double amount) {
+    public static Operation newBasicOperation(BankOperation type, Account account, double amount) {
         if(type == BankOperation.DEPOSIT) {
             return new DepositOperation(account, amount);
         } else {
@@ -13,7 +13,7 @@ public class OperationFactory {
         }
     }
 
-    public static Operation createTransferOperation(Account source, Account destination, double amount) {
+    public static Operation newTransferOperation(Account source, Account destination, double amount) {
         return new TransferOperation(source, destination, amount);
     }
 }
