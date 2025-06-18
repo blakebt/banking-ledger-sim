@@ -22,7 +22,7 @@ public class Bank {
     public List<Transaction> getTransactionLog() { return transactionLog; }
 
     public void completeTransaction(Account account, BankOperation bankOperation, double amount) {
-        Operation operation = OperationFactory.createBasicOperation(bankOperation, account ,amount);
+        Operation operation = OperationFactory.newBasicOperation(bankOperation, account ,amount);
         // perform the transaction
         exec.execute(operation);
         logTransaction(account, bankOperation, amount);
@@ -35,16 +35,27 @@ public class Bank {
             BankOperation bankOperation,
             double amount
     ) {
-        Operation operation = OperationFactory.createTransferOperation(source, destination, amount);
+        Operation operation = OperationFactory.newTransferOperation(source, destination, amount);
         exec.execute(operation);
+        logTransaction(source, destination, bankOperation, amount);
     }
 
     private void logTransaction(Account account, BankOperation bankOperation, double amount) {
         transactionLog.add(new Transaction(
                 transactionLog.size() + 1,
-                account.getAccountName(),
+                account,
                 bankOperation,
                 amount)
         );
+    }
+
+    private void logTransaction(Account source, Account destination, BankOperation bankOperation, double amount) {
+        transactionLog.add(new Transaction(
+                transactionLog.size() + 1,
+                source,
+                destination,
+                bankOperation,
+                amount
+        ));
     }
 }
