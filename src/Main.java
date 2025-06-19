@@ -1,5 +1,6 @@
 import enums.BankOperation;
 import model.Account;
+import model.Bank;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
