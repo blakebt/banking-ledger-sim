@@ -1,5 +1,6 @@
+package model;
+
 import enums.BankOperation;
-import model.Account;
 
 import java.time.ZonedDateTime;
 
@@ -67,7 +68,7 @@ public class Transaction {
                         timeOfTransaction);
             }
             default -> {
-                return "Invalid Bank Operation"; // should never get here
+                return "Invalid model.Bank Operation"; // should never get here
             }
         }
     }
