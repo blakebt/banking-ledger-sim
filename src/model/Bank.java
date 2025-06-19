@@ -19,7 +19,7 @@ public class Bank {
         this.exec = exec;
     }
 
-    private List<Account> getAccounts() { return accounts; }
+    public List<Account> getAccounts() { return accounts; }
     public List<Transaction> getTransactionLog() { return transactionLog; }
 
 
