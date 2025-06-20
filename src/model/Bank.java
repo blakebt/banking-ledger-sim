@@ -3,25 +3,48 @@ package model;
 import enums.BankOperation;
 import operation.Operation;
 import operation.OperationFactory;
+import util.AccountNumberGenerator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 public class Bank {
-    private final List<Account> accounts;
+    private final Map<String, Account> accounts;
     private final List<Transaction> transactionLog;
     private final ExecutorService exec;
 
     public Bank(ExecutorService exec) {
-        this.accounts = new ArrayList<>();
+        this.accounts = new HashMap<>();
         this.transactionLog = new ArrayList<>();
         this.exec = exec;
     }
 
-    public List<Account> getAccounts() { return accounts; }
+    public Map<String, Account> getAccounts() { return accounts; }
     public List<Transaction> getTransactionLog() { return transactionLog; }
 
+    /**
+     * Creates an account by generating an account number using {@link AccountNumberGenerator}.
+     * Ensures the account number generated is not already in use,
+     * and then creating a new {@link Account} and storing it in the {@link #accounts} map
+     *
+     * @param accountName the name of the account holder
+     * @param balance the initial balance of the account
+     */
+    public void createAccount(String accountName, double balance) {
+
+        // Generate account number and ensure it doesn't already exist
+        String accountNumber;
+        do {
+            accountNumber = AccountNumberGenerator.generateAccountNumber();
+
+        } while(accounts.get(accountNumber) != null);
+
+        Account newAccount = new Account(accountNumber, accountName, balance);
+        accounts.put(accountNumber, newAccount);
+    }
 
     /**
      * Completes a basic ( deposit or withdraw ) transaction. Logs the transaction
