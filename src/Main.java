@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 public class Main {
     public static void main(String[] args) {
         Bank bank;
+        final int SIM_ITERATIONS = 100;
 
         try(ExecutorService exec = Executors.newFixedThreadPool(4)) {
             bank = new Bank(exec);
@@ -19,7 +20,7 @@ public class Main {
             bank.createAccount("Joe", 5000);
             bank.createAccount("Jane", 500);
 
-            simulateClientActivity(bank, 100);
+            simulateClientActivity(bank, SIM_ITERATIONS);
             exec.shutdown();
         }
 
@@ -30,8 +31,11 @@ public class Main {
     private static void simulateClientActivity(Bank bank, int iterations) {
         Random rand = new Random();
 
+        // Get the account numbers of all the accounts in the bank
+        // so that one can be chosen randomly
         List<String> accountNumbers = new ArrayList<>(bank.getAccounts().keySet());
 
+        // main simulation logic
         for(int i = 0; i < iterations; i++) {
             // Choose a random account number
             String randomAccountNumber = accountNumbers.get(rand.nextInt(accountNumbers.size()));
@@ -54,6 +58,8 @@ public class Main {
         Random rand = new Random();
         double amount = min + (max - min) * rand.nextDouble();
 
+        // Ensure the amount returned is generated is in the
+        // standard format for currency
         return Math.round(amount * 100.0) / 100.0;
     }
 }
