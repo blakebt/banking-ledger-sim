@@ -65,7 +65,7 @@ public class Bank {
             exec.execute(operation);
             logTransaction(account, bankOperation, amount);
         } catch (IllegalArgumentException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
     }
