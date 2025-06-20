@@ -13,6 +13,11 @@ public class WithdrawOperation implements Operation {
 
     @Override
     public void execute() {
-        account.withdraw(amount);
+        try {
+            account.withdraw(amount);
+        } catch (IllegalArgumentException e) {
+            System.out.println(account.getAccountName() + " tried to withdraw more than their current balance.");
+        }
+
     }
 }
