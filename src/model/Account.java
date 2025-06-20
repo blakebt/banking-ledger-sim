@@ -34,12 +34,14 @@ public class Account {
         }
 
         balance -= amount;
-
         System.out.printf("%s withdrew $%.2f. New Balance: $%.2f\n", accountName, amount, balance);
     }
 
     public synchronized void deposit(double amount) throws IllegalArgumentException {
-        if(amount <= 0) { throw new IllegalArgumentException("Deposit must be positive."); }
+        if(amount <= 0) {
+            throw new IllegalArgumentException("Deposit must be positive.");
+        }
+
         balance += amount;
         System.out.printf("%s deposited $%.2f. New Balance: $%.2f\n", accountName, amount, balance);
     }
