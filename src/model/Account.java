@@ -6,15 +6,18 @@ package model;
  * money from the client's balance.
  */
 public class Account {
+    private final String accountNumber;
     private final String accountName;
     private double balance;
 
-    public Account(String accountName) {
+    public Account(String accountNumber, String accountName) {
+        this.accountNumber = accountNumber;
         this.accountName = accountName;
         this.balance = 0;
     }
 
-    public Account(String accountName, double balance) {
+    public Account(String accountNumber, String accountName, double balance) {
+        this.accountNumber = accountNumber;
         this.accountName = accountName;
         this.balance = balance;
     }
@@ -40,4 +43,5 @@ public class Account {
         balance += amount;
         System.out.printf("%s deposited $%.2f. New Balance: $%.2f\n", accountName, amount, balance);
     }
+
 }
