@@ -15,7 +15,12 @@ public class TransferOperation implements Operation {
 
     @Override
     public void execute() {
-        source.withdraw(amount);
-        destination.deposit(amount);
+        try {
+            source.withdraw(amount);
+            destination.deposit(amount);
+        } catch (IllegalArgumentException e) {
+            System.out.println(source.getAccountName() + " tried to transfer more money than in their balance.");
+        }
+
     }
 }
