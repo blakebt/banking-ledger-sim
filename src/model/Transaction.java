@@ -4,6 +4,9 @@ import enums.BankOperation;
 
 import java.time.ZonedDateTime;
 
+/**
+ * Represents a record of a transaction that takes place in a bank.
+ */
 public class Transaction {
     private final long transactionId;
     private final Account sourceAccount;
